@@ -505,3 +505,44 @@ CREATE TABLE IF NOT EXISTS `google_drive_file` (
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+CREATE TABLE IF NOT EXISTS customer_budgets (
+    budget_id int unsigned NOT NULL AUTO_INCREMENT,
+    customer_id int unsigned NOT NULL,
+    montant_budget decimal(10,2) DEFAULT NULL,
+    date date DEFAULT NULL,
+    PRIMARY KEY (budget_id),
+    KEY customer_id (customer_id),
+    CONSTRAINT customer_budgets_ibfk_1 FOREIGN KEY (customer_id) REFERENCES customer (customer_id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS expenses (
+    expense_id int unsigned NOT NULL AUTO_INCREMENT,
+    ticket_id int unsigned DEFAULT NULL,
+    lead_id int unsigned DEFAULT NULL,
+    montant decimal(10,2) DEFAULT NULL,
+    date date DEFAULT NULL,
+    PRIMARY KEY (expense_id),
+    KEY ticket_id (ticket_id),
+    KEY lead_id (lead_id),
+    CONSTRAINT expenses_ibfk_2 FOREIGN KEY (ticket_id) REFERENCES trigger_ticket (ticket_id),
+    CONSTRAINT expenses_ibfk_3 FOREIGN KEY (lead_id) REFERENCES trigger_lead (lead_id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS seuil(
+   seuil_id INT NOT NULL AUTO_INCREMENT,
+   taux DECIMAL(10,2) NOT NULL,
+   date_seuil DATETIME NOT NULL,
+   PRIMARY KEY(seuil_id)
+);
+
+CREATE TABLE IF NOT EXISTS budget_alerts (
+    alert_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT UNSIGNED NOT NULL,
+    expense_id INT UNSIGNED,
+    ticket_id INT UNSIGNED,
+    lead_id INT UNSIGNED,
+    message TEXT NOT NULL,
+    alert_date DATETIME ,
+    is_read BOOLEAN DEFAULT FALSE
+);

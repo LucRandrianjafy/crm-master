@@ -1,0 +1,11 @@
+id,email,password,hire_date,created_at,updated_at,username,status,token,is_password_set
+1,john.doe@example.com,$2y$10$abcdefg1234567890abcdefg1234567890abcdefg1234567890abcdefg,2023-01-15 08:30:00,2023-01-15 08:30:00,2023-03-10 12:00:00,johndoe,active,abc123tokenxyz,1
+2,jane.smith@example.com,$2y$10$abcdefg1234567890abcdefg1234567890abcdefg1234567890abcdefg,2022-06-10 09:45:00,2022-06-10 09:45:00,2023-03-11 14:00:00,janesmith,active,xyz789tokenabc,1
+3,bob.miller@example.com,NULL,2021-09-20 10:15:00,2021-09-20 10:15:00,2023-03-12 16:30:00,bobmiller,inactive,,0
+4,alice.williams@example.com,$2y$10$abcdefg1234567890abcdefg1234567890abcdefg1234567890abcdefg,2020-11-05 14:00:00,2020-11-05 14:00:00,2023-03-13 10:45:00,alicew,active,token123xyz,1
+5,charlie.brown@example.com,NULL,2019-07-12 07:20:00,2019-07-12 07:20:00,2023-03-14 09:00:00,charlieb,suspended,,0
+6,emily.johnson@example.com,$2y$10$abcdefg1234567890abcdefg1234567890abcdefg1234567890abcdefg,2023-04-01 12:10:00,2023-04-01 12:10:00,2023-04-01 12:10:00,emilyj,active,token456def,1
+7,michael.scott@example.com,$2y$10$abcdefg1234567890abcdefg1234567890abcdefg1234567890abcdefg,2022-12-25 13:50:00,2022-12-25 13:50:00,2023-03-15 11:30:00,michaels,active,token789ghi,1
+8,pamela.beesly@example.com,NULL,2021-03-17 16:40:00,2021-03-17 16:40:00,2023-03-16 15:00:00,pambeesly,inactive,,0
+9,jim.halpert@example.com,$2y$10$abcdefg1234567890abcdefg1234567890abcdefg1234567890abcdefg,2020-10-08 18:25:00,2020-10-08 18:25:00,2023-03-17 16:15:00,jimhalpert,active,token321xyz,1
+10,kevin.malone@example.com,NULL,2018-05-30 22:10:00,2018-05-30 22:10:00,2023-03-18 13:45:00,kevinmalone,suspended,,0
