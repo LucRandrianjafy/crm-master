@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" content="${_csrf.token}" />
+    <meta name="_csrf_header" content="${_csrf.headerName}" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <link th:href="@{/css/style.min.css}" rel="stylesheet">
+
+    <title>Répondre à l'alerte</title>
+    <style>
+        .full-page-alert {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+    
+        .alert-box {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            width: 50%;
+            text-align: center;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.5);
+        }
+    
+        .alert-message {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+    
+        /* Style pour les boutons dans le formulaire */
+        .form-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+            gap: 10px;
+            flex-wrap: wrap; /* Permet aux boutons de passer à la ligne si nécessaire */
+        }
+    
+        .form-buttons button {
+            width: 45%;  /* Ajuste la largeur à 45% pour un affichage côte à côte */
+            font-size: 1.2rem; /* Taille du texte ajustée */
+            padding: 12px 20px; /* Taille du bouton ajustée */
+            min-width: 150px;  /* S'assure que les boutons ne deviennent pas trop petits */
+        }
+    
+        /* Gérer l'apparence des boutons pour qu'ils soient visuellement proches d'un lien */
+        .form-buttons button.btn-danger {
+            background-color: #dc3545; /* Red */
+            border-color: #dc3545;
+        }
+    
+        .form-buttons button.btn-success {
+            background-color: #28a745; /* Green */
+            border-color: #28a745;
+        }
+    
+        /* Supprimer l'effet de bordure sur le bouton en cas de focus */
+        .form-buttons button:focus {
+            outline: none;
+        }
+    
+        /* Style général de la page */
+        .alert-box h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <div class="full-page-alert">
+        <div class="alert-box">
+            <h2>Message de confirmation</h2>
+            
+            <!-- Si aucune alerte n'est disponible -->
+            <div th:if="${#lists.isEmpty(alerts)}">
+                <p>Aucune alerte à afficher.</p>
+            </div>
+
+            <!-- Affichage des alertes -->
+            <div th:if="${!#lists.isEmpty(alerts)}" th:each="alert : ${alerts}">
+                <div class="alert-message">
+                    <strong th:text="${alert.message}"></strong> <br>
+                    <span class="text-muted">[<span th:text="${alert.formattedAlertDate != null ? alert.formattedAlertDate : '-'}"></span>]</span>
+                    <br>
+                    <small th:text="'Client ID : ' + (${alert.customerId} ?: 'Non disponible')"></small>
+                </div>
+                <div class="form-buttons">
+                    <a class="btn btn-success btn-lg" th:href="@{/expenses}">Accepter</a>
+                    <form action="#" th:action="@{/expense/delete(expenseId=${alert.expenseId}, alertId=${alert.id})}" method="post">
+                        <button type="submit" class="btn btn-danger btn-lg">Refuser</button>
+                    </form>
+                </div>                                            
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+    <script>
+        function confirmAction(button, status) {
+            let alertId = button.getAttribute("data-id");
+            let form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/alert/updateStatus';
+
+            let inputId = document.createElement('input');
+            inputId.type = 'hidden';
+            inputId.name = 'alertId';
+            inputId.value = alertId;
+
+            let inputStatus = document.createElement('input');
+            inputStatus.type = 'hidden';
+            inputStatus.name = 'status';
+            inputStatus.value = status;
+
+            form.appendChild(inputId);
+            form.appendChild(inputStatus);
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+</body>
+
+</html>

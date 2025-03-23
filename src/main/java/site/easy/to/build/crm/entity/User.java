@@ -81,8 +81,6 @@ public class User {
     @JsonIgnoreProperties("user")
     private UserProfile userProfile;
 
-
-
     public User() {
 
     }
@@ -216,6 +214,10 @@ public class User {
 
     public boolean isInactiveUser() {
         return this.status.equals("inactive");
+    }
+
+    public void setIsPasswordSet(Boolean isPasswordSet) {
+        this.isPasswordSet = isPasswordSet != null && isPasswordSet;
     }
 
 }

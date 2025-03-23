@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:insert="~{/general/head.html}"></div>
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
+
+<!-- Editable CSS -->
+<link rel="stylesheet" type="text/css"
+      th:href="@{/css/dataTables.bootstrap4.css}">
+<link rel="stylesheet" type="text/css"
+      th:href="@{/css/responsive.dataTables.min.css}">
+
+<!-- Custom CSS -->
+<link th:href="@{/css/style.min.css}" rel="stylesheet">
+<!-- page css -->
+<link th:href="@{/css/pages/inbox.css}" rel="stylesheet">
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let alertMessage = "[[${alertMessage}]]";
+        let alertType = "[[${alertType}]]";
+
+        if (alertMessage && alertMessage !== "null") {
+            if (alertType === "danger") {
+                alert("🚨 " + alertMessage);
+                window.location.href = "/alerts";
+            } else {
+                alert(alertMessage);
+                window.location.href = "/expenses";
+            }
+        }
+    });
+</script>
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body class="skin-blue fixed-layout">
+
+<div class="preloader">
+    <div class="loader">
+        <div class="loader__figure"></div>
+        <p class="loader__label">Elite admin</p>
+    </div>
+</div>
+
+<div id="main-wrapper">
+
+    <div th:insert="~{/general/header.html}"></div>
+
+    <div th:insert="~{/general/left-sidebar.html}"></div>
+
+    <div class="page-wrapper">
+
+        <div class="container-fluid">
+
+            <div th:insert="~{/general/page-titles.html}"></div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                                
+                            <div class="container mt-4">
+                                <h1>Liste des Dépenses</h1>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <a th:href="@{/expense/new-ticket}" class="btn btn-primary"><i class="fa fa-plus"></i> Dépense Ticket</a>
+                                        <a th:href="@{/expense/new-lead}" class="btn btn-success"><i class="fa fa-plus"></i> Dépense Lead</a>
+                                    </div>
+                                </div>
+                                <table class="table table-bordered table-striped">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Ticket</th>
+                                            <th>Lead</th>
+                                            <th>Montant</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="expense : ${expenses}">
+                                            <td th:text="${expense.expenseId}"></td>
+                                            <td th:text="${expense.ticket != null ? expense.ticket.ticketId : '-'}"></td>
+                                            <td th:text="${expense.lead != null ? expense.lead.leadId : '-'}"></td>
+                                            <td th:text="${expense.montant}"></td>
+                                            <td th:text="${expense.date != null ? #temporals.format(expense.date, 'dd/MM/yyyy') : '-'}"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            
+
+                            <p th:if="${message}" th:text="${message}" style="color:green;"></p>
+                            <p th:if="${error}" th:text="${error}" style="color:red;"></p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div th:insert="~{/general/right-sidebar.html}"></div>
+
+        </div>
+
+    </div>
+
+    <div th:insert="~{/general/footer.html}"></div>
+
+</div>
+
+<script th:inline="javascript">
+    var home = /*[[${home}]]*/ null;
+</script>
+<script th:src="@{/js/library/jquery-3.2.1.min.js}" type="text/javascript"></script>
+<!--    &lt;!&ndash; Bootstrap tether Core JavaScript &ndash;&gt;-->
+<script th:src="@{/js/library/popper.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/library/bootstrap.min.js}" type="text/javascript"></script>
+<!--    &lt;!&ndash; slimscrollbar scrollbar JavaScript &ndash;&gt;-->
+<script th:src="@{/js/library/perfect-scrollbar.jquery.min.js}" type="text/javascript"></script>
+<!--Wave Effects -->
+<script th:src="@{/js/library/waves.js}" type="text/javascript"></script>
+<!--Menu sidebar -->
+<script th:src="@{/js/library/sidebarmenu.js}" type="text/javascript"></script>
+<!--stickey kit -->
+<script th:src="@{/js/library/sticky-kit.min.js}"></script>
+<script th:src="@{/js/library/jquery.sparkline.min.js}" type="text/javascript"></script>
+<!--Custom JavaScript -->
+<script th:src="@{/js/library/custom.min.js}" type="text/javascript"></script>
+<!-- Editable -->
+<script th:src="@{/js/library/jquery.dataTables.min.js}"></script>
+<script th:src="@{/js/library/dataTables.responsive.min.js}"></script>
+<script>
+    $('#config-table').DataTable({
+        responsive: true
+    });
+</script>
+</body>
+</html>

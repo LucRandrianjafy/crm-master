@@ -1,0 +1,20 @@
+docker exec -it mysql_db mysql -u root -p
+php spark serve --port 8000
+
+-- Premier insert avec ticket_id null
+INSERT INTO expenses ( ticket_id, lead_id, montant, date)
+VALUES ( NULL, 56, 1200.00, '2025-03-22');
+
+-- Deuxième insert avec lead_id null
+INSERT INTO expenses ( ticket_id, lead_id, montant, date)
+VALUES ( 47, NULL, 800.00, '2025-03-23');
+
+
+INSERT INTO seuil (taux, date_seuil) 
+VALUES (0.80, '2024-04-23');
+
+INSERT INTO seuil (taux, date_seuil) 
+VALUES (0.50, '2025-03-23');
+
+si accepter = effacer dans alert
+sinon = effacer dans expense

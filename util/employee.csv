@@ -1,0 +1,9 @@
+id,username,first_name,last_name,email,password,provider
+1,john_doe,John,Doe,john.doe@example.com,password123,local
+2,jane_smith,Jane,Smith,jane.smith@example.com,password456,google
+3,alice_johnson,Alice,Johnson,alice.johnson@example.com,password789,facebook
+4,bob_brown,Bob,Brown,bob.brown@example.com,password101,local
+5,emma_white,Emma,White,emma.white@example.com,password202,google
+6,michael_green,Michael,Green,michael.green@example.com,password303,facebook
+7,susan_black,Susan,Black,susan.black@example.com,password404,local
+8,alex_lee,Alex,Lee,alex.lee@example.com,password505,google
